@@ -4,9 +4,10 @@
     "license": "MIT",
     "keywords": [
         "php",
-        "hyperf"
+        "hyperf",
+        "TME"
     ],
-    "description": "",
+    "description": "TME长音频实时入库接口",
     "autoload": {
         "psr-4": {
             "KY\\TME\\": "src/"
@@ -18,7 +19,7 @@
         }
     },
     "require": {
-        "php": ">=7.3"
+        "php": ">=8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
@@ -26,9 +27,6 @@
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": ">=7.0",
         "swoole/ide-helper": "^4.5"
-    },
-    "suggest": {
-        "swow/swow": "Required to create swow components."
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

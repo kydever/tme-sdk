@@ -1,5 +1,7 @@
-# component-creator
+# TME长音频实时入库接口
+
+## 安装
 
 ```
-composer create-project hyperf/component-creator
+composer require kydever/tme-sdk
 ```
