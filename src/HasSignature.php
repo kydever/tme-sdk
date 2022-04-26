@@ -11,11 +11,15 @@ declare(strict_types=1);
  */
 namespace KY\TME;
 
-class TMEClient
+trait HasSignature
 {
-    use HasSignature;
-
-    public function __construct(protected Config $config)
+    public function sign(int $timestamp): string
     {
+        $appid = $this->config->getAppid();
+        $secret = $this->config->getSecret();
+
+        return strtoupper(
+            md5($appid . '_' . $secret . '_' . $timestamp)
+        );
     }
 }

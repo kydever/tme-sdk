@@ -5,3 +5,9 @@
 ```
 composer require kydever/tme-sdk
 ```
+
+## 使用
+
+跟 TME 官方人员沟通申请 `appid` `secret` 并拿到对应的文档，其中包含测试环境和线上环境的 `base_uri`
+
+

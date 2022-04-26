@@ -16,7 +16,7 @@ class Config
     public function __construct(
         protected string $appid,
         protected string $secret,
-        protected string $mode = Mode::TEST
+        protected string $baseUri
     ) {
     }
 
@@ -30,8 +30,8 @@ class Config
         return $this->secret;
     }
 
-    public function getMode(): string
+    public function getBaseUri(): string
     {
-        return $this->mode;
+        return $this->baseUri;
     }
 }
