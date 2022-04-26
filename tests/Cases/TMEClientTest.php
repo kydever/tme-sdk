@@ -22,7 +22,7 @@ class TMEClientTest extends AbstractTestCase
 {
     public function testSign()
     {
-        $client = new TMEClient(new Config('123', 'tmemusic', ''));
+        $client = new TMEClient(new Config(123, 'tmemusic', ''));
 
         $sign = $client->sign(1554880000);
 

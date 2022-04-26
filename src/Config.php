@@ -14,13 +14,13 @@ namespace KY\TME;
 class Config
 {
     public function __construct(
-        protected string $appid,
+        protected int $appid,
         protected string $secret,
         protected string $baseUri
     ) {
     }
 
-    public function getAppid(): string
+    public function getAppid(): int
     {
         return $this->appid;
     }
