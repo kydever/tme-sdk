@@ -13,8 +13,11 @@ namespace KY\TME;
 
 trait HasSignature
 {
+    public $timestamp;
+
     public function sign(int $timestamp): string
     {
+        $this->timestamp = $timestamp;
         $appid = $this->config->getAppid();
         $secret = $this->config->getSecret();
 

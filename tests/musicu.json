@@ -1,0 +1,12 @@
+{
+  "req": {
+    "data": {
+      "code": 0,
+      "msg": "success",
+      "item_id": 1000
+    },
+    "code": 0
+  },
+  "code": 0,
+  "ts": 1556106986456
+}
