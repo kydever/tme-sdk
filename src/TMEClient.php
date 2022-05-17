@@ -12,9 +12,7 @@ declare(strict_types=1);
 namespace KY\TME;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
-use KY\TME\Exception\RequestTimeoutException;
 
 class TMEClient
 {
@@ -67,23 +65,18 @@ class TMEClient
 
     protected function post(array $parameters, string $method): array
     {
-        try {
-            $response = $this->client()
-                ->post('cgi-bin/musicu.fcg', [
-                    RequestOptions::JSON => [
-                        'req' => [
-                            'module' => 'tme_music.LongMusicAccessServer.LongMusicAccessObj',
-                            'method' => $method,
-                            'param' => $parameters,
-                        ],
-                    ],
-                    RequestOptions::HEADERS => [
-                        'comm' => $this->setupCommon(),
-                    ],
-                ]);
-        } catch (GuzzleException) {
-            throw new RequestTimeoutException();
-        }
+        $response = $this->client()->post('cgi-bin/musicu.fcg', [
+            RequestOptions::JSON => [
+                'req' => [
+                    'module' => 'tme_music.LongMusicAccessServer.LongMusicAccessObj',
+                    'method' => $method,
+                    'param' => $parameters,
+                ],
+            ],
+            RequestOptions::HEADERS => [
+                'comm' => $this->setupCommon(),
+            ],
+        ]);
 
         return json_decode((string) $response->getBody(), true, flags: JSON_THROW_ON_ERROR);
     }
