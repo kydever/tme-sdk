@@ -11,8 +11,6 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use KY\TME\Config;
 use KY\TME\TMEClient;
 use Mockery;
@@ -23,9 +21,18 @@ use Mockery;
  */
 class TMEClientTest extends AbstractTestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Mockery::close();
+    }
+
+    public function testComm()
+    {
+        $client = new TMEClient(new Config(123, 'tmemusic', ''));
+
+        $comm = $client->setupCommon(1554880000);
+
+        $this->assertSame('8773212CD0C852C2BC16C7F2C98895C8', $comm['sign']);
     }
 
     public function testSign()
@@ -40,24 +47,71 @@ class TMEClientTest extends AbstractTestCase
     public function testAdd()
     {
         $client = Mockery::mock(TMEClient::class, [new Config(123, 'tmemusic', '')]);
-        $client->shouldReceive('client')->andReturn($this->client());
-        $data = $client->add([
+        $client->shouldReceive('add')->andReturn($this->body());
+        $paramters = [
             'info' => [
                 'album_info_path' => 'http://xxxx/xxx/sample.json',
             ],
-        ]);
-        var_dump($data);
+        ];
+        $data = $client->add($paramters);
+        $this->assertNotEmpty($data);
+        $this->assertSame(0, $data['code']);
     }
 
-    protected function client()
+    public function testPush()
     {
-        $client = Mockery::mock(Client::class);
-        $client->shouldReceive('post')->withAnyArgs()->andReturnUsing(function () {
-            $body = file_get_contents(__DIR__ . '/../musicu.json');
+        $client = Mockery::mock(TMEClient::class, [new Config(123, 'tmemusic', '')]);
+        $client->shouldReceive('push')->andReturn($this->body());
+        $paramters = [
+            'info' => [
+                'track' => [
+                    'Flong_track_name' => '测试书籍第3章',
+                    '...',
+                ],
+                '...',
+            ],
+        ];
+        $data = $client->push($paramters);
+        $this->assertNotEmpty($data);
+        $this->assertSame(0, $data['code']);
+    }
 
-            return new Response(body: $body);
-        });
+    public function testUpdate()
+    {
+        $client = Mockery::mock(TMEClient::class, [new Config(123, 'tmemusic', '')]);
+        $client->shouldReceive('update')->andReturn($this->body());
+        $paramters = [
+            'info' => [
+                'track' => [
+                    'Flong_track_name' => '测试书籍第3章',
+                    '...',
+                ],
+                '...',
+            ],
+        ];
+        $data = $client->update($paramters);
+        $this->assertNotEmpty($data);
+        $this->assertSame(0, $data['code']);
+    }
 
-        return $client;
+    public function testReview()
+    {
+        $client = Mockery::mock(TMEClient::class, [new Config(123, 'tmemusic', '')]);
+        $client->shouldReceive('review')->andReturn($this->body());
+        $paramters = [
+            'Ftrans_company' => '公司名',
+            'Flong_album_number' => 'xxx',
+        ];
+        $data = $client->review($paramters);
+        $this->assertNotEmpty($data);
+        $this->assertSame(0, $data['code']);
+    }
+
+    protected function body()
+    {
+        $body = file_get_contents(__DIR__ . '/../musicu.json');
+        $data = json_decode($body, true);
+
+        return $data['req']['data'] ?? [];
     }
 }

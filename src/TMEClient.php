@@ -13,7 +13,7 @@ namespace KY\TME;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RequestOptions;
 use KY\TME\Exception\RequestTimeoutException;
 
 class TMEClient
@@ -28,99 +28,63 @@ class TMEClient
     {
         $config = [
             'base_uri' => $this->config->getBaseUri(),
-            'headers' => [
-                'comm' => [
-                    'appid' => $this->config->getAppid(),
-                    'timestamp' => $this->timestamp,
-                    'sign' => $this->sign(time()),
-                ],
-            ],
         ];
 
         return new Client($config);
     }
 
     /**
-     * 书籍添加
-     *
-     * @param array $paramters
-     * @return array
+     * 书籍添加.
      */
     public function add(array $paramters): array
     {
-        return $this->base($paramters, 'InsertAlbum');
+        return $this->post($paramters, 'InsertAlbum');
     }
 
     /**
-     * 章节追加/更新
-     *
-     * @param array $paramters
-     * @return array
+     * 章节追加/更新.
      */
-    public function push(array $paramters): array
+    public function push(array $parameters): array
     {
-        return $this->base($paramters, 'InsertTrack');
+        return $this->post($parameters, 'InsertTrack');
     }
 
     /**
-     * 书籍更新
-     *
-     * @param array $paramters
-     * @return array
+     * 书籍更新.
      */
-    public function update(array $paramters): array
+    public function update(array $parameters): array
     {
-        return $this->add($paramters);
+        return $this->add($parameters);
     }
 
     /**
-     * 查询书籍入库情况
-     *
-     * @param array $paramters
-     * @return array
+     * 查询书籍入库情况.
      */
-    public function review(array $paramters): array
+    public function review(array $parameters): array
     {
-        return $this->base($paramters, 'QueryAlbumStatus');
+        return $this->post($parameters, 'QueryAlbumStatus');
     }
 
-    protected function base(array $paramters, string $method): array
+    protected function post(array $parameters, string $method): array
     {
         try {
             $response = $this->client()
                 ->post('cgi-bin/musicu.fcg', [
-                    'json' => [
+                    RequestOptions::JSON => [
                         'req' => [
                             'module' => 'tme_music.LongMusicAccessServer.LongMusicAccessObj',
                             'method' => $method,
-                            'param' => $paramters,
+                            'param' => $parameters,
                         ],
+                    ],
+                    RequestOptions::HEADERS => [
+                        'comm' => $this->setupCommon(),
                     ],
                 ]);
         } catch (GuzzleException) {
             throw new RequestTimeoutException();
         }
 
-        return $this->body($response);
-    }
-
-    /**
-     * 返回响应
-     *
-     * {
-     *  "code": 0,
-     *  "msg": "success",
-     *  "item_id": 1000
-     * }
-     *
-     * @param Response $response
-     * @return array
-     */
-    protected function body(Response $response): array
-    {
-        $body = (string) $response->getBody();
-        $data = json_decode($body, true);
-
-        return $data['req']['data'] ?? [];
+        return json_decode((string) $response->getBody(), true, flags: JSON_THROW_ON_ERROR);
     }
 }
