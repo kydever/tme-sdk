@@ -34,9 +34,9 @@ class TMEClient
     /**
      * 书籍添加.
      */
-    public function add(array $paramters): array
+    public function add(array $parameters): array
     {
-        return $this->post($paramters, 'InsertAlbum');
+        return $this->post($parameters, 'InsertAlbum');
     }
 
     /**
