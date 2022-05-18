@@ -9,13 +9,13 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace KY\TME;
+namespace KY\TME\DTO;
 
 class Singer
 {
     public function __construct(
+        public string $name,
         public ?int $sort = null,
-        public string $name
     ) {
     }
 }
