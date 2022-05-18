@@ -12,11 +12,78 @@ composer require kydever/tme-sdk
 
 ## 结构体
 
+Base
+
+```json
+{
+  "trackName": "测试书籍第1章", // 单集名称
+  "location": 1, // 曲序，从1开始计数
+  "language": 0, // 语言
+  "number": "rdxxx", // 传输方用于唯一标识章节的编码
+  "publishTime": "2020-03-25 00:00:00", //发行时间
+  "audioUrl": "http://xxx/1.mp3" //音频链接
+  "saleTime": "0000-00-00 00:00:00", //上线时间(为 0000-00-00 00:00:00 表示不自动上线)
+  "transName": "", // 单集翻译名
+  "otherName": "" // 单集其他名
+}
+```
+
 Singer
 
 ```json
 {
-    "name": "",
-    "index": 0
+    "name": "主播1", // 主播名
+    "index": 0 // 主播顺序 
+}
+```
+
+Author
+
+```json
+{
+  "name": "",
+  "index": 0
+}
+```
+
+Album
+
+```json
+{
+  "company": "KnowYourself", // 传输方名
+  "name": "测试书籍", // 书籍名
+  "number": "rdxxx", // 传输方用于唯一标识的书籍编码
+  "scheduleStatus": 1, // 连载状态
+  "area": 0, // 书籍地区
+  "type": 101, // 节目主类型
+  "language": 0, // 书籍语言
+  "photoUrl": "http://xxx/book.jpg", // 书籍图片
+  "publishTime": "2020-03-25 00:00:00", // 发行时间
+  "saleTime": "0000-00-00 00:00:00", // 上线时间(为 0000-00-00 00:00:00 表示不自动上线)
+  "isPicChange": 0, // 如果希望更新图片，则置为1
+  "transName": "", // 书籍翻译名
+  "otherName": "", // 书籍其他名
+  "description": "", // 书籍简介
+  "originalWorkName": "", // 原著作品名
+  "originalPublishTime": "" // 原著发行时间
+}
+```
+
+Track
+
+```json
+{
+  "name": "测试书籍第3章", // 单集名称
+  "location": 1, // 曲序(从1开始计数),
+  "language": 0, // 语言
+  "number": "rdxxx", // 传输方用于唯一标识章节的编码
+  "publishTime": "2020-03-25 00:00:00", // 发行时间
+  "saleTime": "0000-00-00 00:00:00", // 上线时间(为 0000-00-00 00:00:00 表示不自动上线)
+  "audioUrl": "http://xxx/2.mp3", // 音频链接
+  "company": "KnowYourself", // 传输方名
+  "number": "rdxxx",
+  "audioChange": 0, // 如果希望更新音频，则置为 1
+  "transName": "", // 单集翻译名
+  "otherName": "", // 单集其他名
 }
 ```
