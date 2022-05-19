@@ -18,9 +18,12 @@ use KY\TME\Constants\Area;
 use KY\TME\Constants\Language;
 use KY\TME\Constants\ScheduleStatus;
 use KY\TME\Constants\Type;
+use KY\TME\DTO\Album;
 use KY\TME\DTO\AppendParam;
 use KY\TME\DTO\QueryParam;
+use KY\TME\DTO\Singer;
 use KY\TME\DTO\UpdateParam;
+use KY\TME\Json;
 use KY\TME\TMEClient;
 use Mockery;
 
@@ -102,6 +105,9 @@ class TMEClientTest extends AbstractTestCase
         $guzzle = Mockery::mock(Client::class);
         $guzzle->shouldReceive('post')->withAnyArgs()->andReturnUsing(function ($url, $options) {
             $this->assertSame(12345678, $options['json']['comm']['appid']);
+            $json = Json::encode($options['json']['req']['param']);
+            $json = Json::decode($json);
+
             $this->assertSame([
                 'info' => [
                     'album' => [
@@ -110,16 +116,19 @@ class TMEClientTest extends AbstractTestCase
                         'Flong_album_number' => 'rdxxx',
                         'Fschedule_status' => ScheduleStatus::CLOSED,
                         'Farea' => Area::MAINLAND,
-                        'Ftype' => Type::AUDIO_NOVEL,
-                        'Flanguage' => Language::CHINESE_MANDARIN,
+                        'Ftype' => Type::HELP_SLEEP,
+                        'Flanguage' => '0',
                         'Fori_photo_url' => 'http://xxx/book.jpg',
                         'Fpublic_time' => '2020-03-25 00:00:00',
+                        'Fis_pic_change' => 0,
                     ],
                     'album_singers' => [
-                        'Fsinger_name' => '主播1',
+                        [
+                            'Fsinger_name' => '主播1',
+                        ],
                     ],
                 ],
-            ], $options['json']['req']['param']);
+            ], $json);
 
             return new Response(body: file_get_contents(__DIR__ . '/../json/musicu.json'));
         });
@@ -127,18 +136,18 @@ class TMEClientTest extends AbstractTestCase
         $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
         $client->shouldReceive('client')->andReturn($guzzle);
 
-        $res = $client->update(new UpdateParam([
-            'Ftrans_company' => 'KnowYourself',
-            'Flong_album_name' => '测试书籍',
-            'Flong_album_number' => 'rdxxx',
-            'Fschedule_status' => ScheduleStatus::CLOSED,
-            'Farea' => Area::MAINLAND,
-            'Ftype' => Type::AUDIO_NOVEL,
-            'Flanguage' => Language::CHINESE_MANDARIN,
-            'Fori_photo_url' => 'http://xxx/book.jpg',
-            'Fpublic_time' => '2020-03-25 00:00:00',
-        ], [
-            'Fsinger_name' => '主播1',
+        $res = $client->update(new UpdateParam(new Album(
+            'KnowYourself',
+            '测试书籍',
+            'rdxxx',
+            ScheduleStatus::CLOSED,
+            Area::MAINLAND,
+            Type::HELP_SLEEP,
+            [Language::CHINESE_MANDARIN],
+            'http://xxx/book.jpg',
+            '2020-03-25 00:00:00',
+        ), [
+            new Singer('主播1'),
         ]));
         $this->assertSame(0, $res['code']);
     }
