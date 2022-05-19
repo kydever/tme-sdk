@@ -56,49 +56,49 @@ class TMEClientTest extends AbstractTestCase
         $this->assertSame('8773212CD0C852C2BC16C7F2C98895C8', $sign);
     }
 
-    public function testAppendOrUpdate()
-    {
-        $guzzle = Mockery::mock(Client::class);
-        $guzzle->shouldReceive('post')->withAnyArgs()->andReturnUsing(function ($url, $options) {
-            $this->assertSame(12345678, $options['json']['comm']['appid']);
-            $this->assertSame([
-                'info' => [
-                    'track' => [
-                        'Flong_track_name' => '测试书籍第3章',
-                        'Flocation' => 3,
-                        'Flanguage' => Language::CHINESE_MANDARIN,
-                        'Ftrack_number' => 'rdxxx',
-                        'Fpublic_time' => '2020-03-25 00:00:00',
-                        'Fori_audio_url' => 'http://xxx/2.mp3',
-                        'Ftrans_company' => 'KnowYourself',
-                        'Flong_album_number' => 'rdxxx',
-                    ],
-                    'track_singers' => [
-                        'Fsinger_name' => '主播1',
-                    ],
-                ],
-            ], $options['json']['req']['param']);
-
-            return new Response(body: file_get_contents(__DIR__ . '/../json/musicu.json'));
-        });
-
-        $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
-        $client->shouldReceive('client')->andReturn($guzzle);
-
-        $res = $client->appendOrUpdate(new AppendParam([
-            'Flong_track_name' => '测试书籍第3章',
-            'Flocation' => 3,
-            'Flanguage' => Language::CHINESE_MANDARIN,
-            'Ftrack_number' => 'rdxxx',
-            'Fpublic_time' => '2020-03-25 00:00:00',
-            'Fori_audio_url' => 'http://xxx/2.mp3',
-            'Ftrans_company' => 'KnowYourself',
-            'Flong_album_number' => 'rdxxx',
-        ], [
-            'Fsinger_name' => '主播1',
-        ]));
-        $this->assertSame(0, $res['code']);
-    }
+    // public function testAppendOrUpdate()
+    // {
+    //     $guzzle = Mockery::mock(Client::class);
+    //     $guzzle->shouldReceive('post')->withAnyArgs()->andReturnUsing(function ($url, $options) {
+    //         $this->assertSame(12345678, $options['json']['comm']['appid']);
+    //         $this->assertSame([
+    //             'info' => [
+    //                 'track' => [
+    //                     'Flong_track_name' => '测试书籍第3章',
+    //                     'Flocation' => 3,
+    //                     'Flanguage' => Language::CHINESE_MANDARIN,
+    //                     'Ftrack_number' => 'rdxxx',
+    //                     'Fpublic_time' => '2020-03-25 00:00:00',
+    //                     'Fori_audio_url' => 'http://xxx/2.mp3',
+    //                     'Ftrans_company' => 'KnowYourself',
+    //                     'Flong_album_number' => 'rdxxx',
+    //                 ],
+    //                 'track_singers' => [
+    //                     'Fsinger_name' => '主播1',
+    //                 ],
+    //             ],
+    //         ], $options['json']['req']['param']);
+    //
+    //         return new Response(body: file_get_contents(__DIR__ . '/../json/musicu.json'));
+    //     });
+    //
+    //     $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
+    //     $client->shouldReceive('client')->andReturn($guzzle);
+    //
+    //     $res = $client->appendOrUpdate(new AppendParam([
+    //         'Flong_track_name' => '测试书籍第3章',
+    //         'Flocation' => 3,
+    //         'Flanguage' => Language::CHINESE_MANDARIN,
+    //         'Ftrack_number' => 'rdxxx',
+    //         'Fpublic_time' => '2020-03-25 00:00:00',
+    //         'Fori_audio_url' => 'http://xxx/2.mp3',
+    //         'Ftrans_company' => 'KnowYourself',
+    //         'Flong_album_number' => 'rdxxx',
+    //     ], [
+    //         'Fsinger_name' => '主播1',
+    //     ]));
+    //     $this->assertSame(0, $res['code']);
+    // }
 
     public function testUpdate()
     {
