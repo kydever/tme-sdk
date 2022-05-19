@@ -13,7 +13,7 @@ namespace KY\TME\DTO;
 
 use KY\TME\Json;
 
-class AppendOrUpdateParam implements ParamInterface
+class SaveTrackParam implements ParamInterface
 {
     /**
      * @param Track $track

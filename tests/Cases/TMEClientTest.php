@@ -19,10 +19,10 @@ use KY\TME\Constants\Language;
 use KY\TME\Constants\ScheduleStatus;
 use KY\TME\Constants\Type;
 use KY\TME\DTO\Album;
-use KY\TME\DTO\AppendOrUpdateParam;
 use KY\TME\DTO\Chapter;
 use KY\TME\DTO\CreateParam;
 use KY\TME\DTO\QueryParam;
+use KY\TME\DTO\SaveTrackParam;
 use KY\TME\DTO\Track;
 use KY\TME\DTO\UpdateParam;
 use KY\TME\Json;
@@ -190,7 +190,7 @@ class TMEClientTest extends AbstractTestCase
         $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
         $client->shouldReceive('client')->andReturn($guzzle);
 
-        $res = $client->insertTrack(new appendOrUpdateParam(
+        $res = $client->insertTrack(new SaveTrackParam(
             new Track(
                 '测试书籍第3章',
                 3,

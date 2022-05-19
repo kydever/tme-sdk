@@ -13,10 +13,10 @@ namespace KY\TME;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use KY\TME\DTO\AppendOrUpdateParam;
 use KY\TME\DTO\CreateParam;
 use KY\TME\DTO\QueryParam;
 use KY\TME\DTO\Req;
+use KY\TME\DTO\SaveTrackParam;
 use KY\TME\DTO\UpdateParam;
 
 class TMEClient
@@ -47,7 +47,7 @@ class TMEClient
     /**
      * 章节追加/更新.
      */
-    public function insertTrack(AppendOrUpdateParam $param): array
+    public function insertTrack(SaveTrackParam $param): array
     {
         return $this->request(new Req('InsertTrack', $param));
     }
