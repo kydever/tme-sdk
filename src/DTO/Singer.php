@@ -13,9 +13,13 @@ namespace KY\TME\DTO;
 
 class Singer
 {
+    /**
+     * @param string $name 主播名
+     * @param null|int $sort 主播排序
+     */
     public function __construct(
         public string $name,
-        public ?int $sort = null,
+        public ?int $sort = null
     ) {
     }
 }
