@@ -47,7 +47,7 @@ class TMEClient
     /**
      * 章节追加/更新.
      */
-    public function appendOrUpdate(AppendOrUpdateParam $param): array
+    public function insertTrack(AppendOrUpdateParam $param): array
     {
         return $this->request(new Req('InsertTrack', $param));
     }

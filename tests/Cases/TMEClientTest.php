@@ -112,6 +112,7 @@ class TMEClientTest extends AbstractTestCase
             return new Response(body: file_get_contents(__DIR__ . '/../json/musicu.json'));
         });
 
+        /** @var TMEClient $client */
         $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
         $client->shouldReceive('client')->andReturn($guzzle);
         $res = $client->create(new CreateParam(
@@ -185,10 +186,11 @@ class TMEClientTest extends AbstractTestCase
             return new Response(body: file_get_contents(__DIR__ . '/../json/musicu.json'));
         });
 
+        /** @var TMEClient $client */
         $client = Mockery::mock(TMEClient::class . '[client]', [new Config(12345678, 'secret', 'https://api.github.com/')]);
         $client->shouldReceive('client')->andReturn($guzzle);
 
-        $res = $client->appendOrUpdate(new appendOrUpdateParam(
+        $res = $client->insertTrack(new appendOrUpdateParam(
             new Track(
                 '测试书籍第3章',
                 3,
