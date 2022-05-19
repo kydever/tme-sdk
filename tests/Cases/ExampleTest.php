@@ -11,14 +11,22 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use function KY\TME\array_filter_null;
+
 /**
  * @internal
  * @coversNothing
  */
 class ExampleTest extends AbstractTestCase
 {
-    public function testExample()
+    public function testArrayFilterNull()
     {
-        $this->assertTrue(true);
+        $items = [
+            'id' => 1,
+            'name' => '',
+            'gender' => null,
+        ];
+
+        $this->assertSame(['id' => 1, 'name' => ''], array_filter_null($items));
     }
 }
