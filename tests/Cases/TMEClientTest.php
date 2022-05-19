@@ -157,7 +157,9 @@ class TMEClientTest extends AbstractTestCase
         $guzzle = Mockery::mock(Client::class);
         $guzzle->shouldReceive('post')->withAnyArgs()->andReturnUsing(function ($uri, $options) {
             $this->assertSame(12345678, $options['json']['comm']['appid']);
-            $this->assertSame(['Ftrans_company' => 'KnowYourself', 'Flong_album_number' => 'rdxxx'], $options['json']['req']['param']);
+            $json = Json::encode($options['json']['req']['param']);
+            $json = Json::decode($json);
+            $this->assertSame(['Ftrans_company' => 'KnowYourself', 'Flong_album_number' => 'rdxxx'], $json);
             return new Response(200, body: file_get_contents(__DIR__ . '/../json/query.json'));
         });
 

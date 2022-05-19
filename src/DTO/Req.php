@@ -31,16 +31,12 @@ class Req implements Arrayable, \Stringable, \JsonSerializable
         return [
             'module' => $this->module,
             'method' => $this->method,
-            'param' => $this->param->toArray(),
+            'param' => $this->param,
         ];
     }
 
     public function jsonSerialize(): mixed
     {
-        return [
-            'module' => $this->module,
-            'method' => $this->method,
-            'param' => $this->param,
-        ];
+        return $this->toArray();
     }
 }
