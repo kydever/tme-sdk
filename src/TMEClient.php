@@ -13,7 +13,8 @@ namespace KY\TME;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use KY\TME\DTO\AppendParam;
+use KY\TME\DTO\AppendOrUpdateParam;
+use KY\TME\DTO\CreateParam;
 use KY\TME\DTO\QueryParam;
 use KY\TME\DTO\Req;
 use KY\TME\DTO\UpdateParam;
@@ -36,17 +37,25 @@ class TMEClient
     }
 
     /**
+     * 整本入库.
+     */
+    public function create(CreateParam $param): array
+    {
+        return $this->request(new Req('InsertAlbum', $param));
+    }
+
+    /**
      * 章节追加/更新.
      */
-    public function appendOrUpdate(AppendParam $param): array
+    public function appendOrUpdate(AppendOrUpdateParam $param): array
     {
         return $this->request(new Req('InsertTrack', $param));
     }
 
     /**
-     * 书籍更新.
+     * 更新书籍.
      */
-    public function update(UpdateParam $param): array
+    public function update(UpdateParam $param)
     {
         return $this->request(new Req('InsertAlbum', $param));
     }

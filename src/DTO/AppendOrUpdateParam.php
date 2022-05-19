@@ -13,11 +13,11 @@ namespace KY\TME\DTO;
 
 use KY\TME\Json;
 
-class UpdateParam implements ParamInterface
+class AppendOrUpdateParam implements ParamInterface
 {
     public function __construct(
-        public Album $album,
-        public Singer $singer
+        public Track $track,
+        public Singer $singer,
     ) {
     }
 
@@ -30,8 +30,8 @@ class UpdateParam implements ParamInterface
     {
         return [
             'info' => [
-                'album' => $this->album,
-                'album_singers' => [
+                'track' => $this->track,
+                'track_singers' => [
                     $this->singer,
                 ],
             ],

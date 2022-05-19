@@ -11,7 +11,10 @@ declare(strict_types=1);
  */
 namespace KY\TME\DTO;
 
-class Track
+use KY\TME\Json;
+use function KY\TME\array_filter_null;
+
+class Track implements ParamInterface
 {
     /**
      * @param string $name 单集名称
@@ -41,5 +44,33 @@ class Track
         public ?string $saleTime = null,
         public ?int $audioChange = null
     ) {
+    }
+
+    public function __toString()
+    {
+        return Json::encode($this->toArray());
+    }
+
+    public function toArray(): array
+    {
+        return array_filter_null([
+            'Flong_track_name' => $this->name,
+            'Ftrans_name' => $this->transName,
+            'Fother_name' => $this->otherName,
+            'Flocation' => $this->location,
+            'Flanguage' => $this->language,
+            'Ftrack_number' => $this->number,
+            'Fpublic_time' => $this->publishTime,
+            'Fsale_time' => $this->saleTime,
+            'Fori_audio_url' => $this->audioUrl,
+            'Ftrans_company' => $this->company,
+            'Flong_album_number' => $this->albumNumber,
+            'Fis_audio_change' => $this->audioChange,
+        ]);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
