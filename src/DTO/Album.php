@@ -11,7 +11,10 @@ declare(strict_types=1);
  */
 namespace KY\TME\DTO;
 
-class Book
+use KY\TME\Json;
+use function KY\TME\array_filter_null;
+
+class Album implements ParamInterface
 {
     /**
      * @param string $company 传输方名
@@ -47,5 +50,36 @@ class Book
         public ?string $originalPublishTime = null,
         public ?string $saleTime = null
     ) {
+    }
+
+    public function __toString(): string
+    {
+        return Json::encode($this->toArray());
+    }
+
+    public function toArray(): array
+    {
+        return array_filter_null([
+            'Ftrans_company' => $this->company,
+            'Flong_album_name' => $this->name,
+            'Ftrans_name' => $this->transName,
+            'Fother_name' => $this->otherName,
+            'Flong_album_desc' => $this->description,
+            'Flong_album_number' => $this->number,
+            'Fschedule_status' => $this->scheduleStatus,
+            'Farea' => $this->area,
+            'Ftype' => $this->type,
+            'Flanguage' => $this->language,
+            'Foriginal_work_name' => $this->originalWorkName,
+            'Foriginal_public_time' => $this->originalPublishTime,
+            'Fori_photo_url' => $this->photoUrl,
+            'Fpublic_time' => $this->publishTime,
+            'Fsale_time' => $this->saleTime,
+        ]);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }

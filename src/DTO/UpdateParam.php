@@ -11,17 +11,18 @@ declare(strict_types=1);
  */
 namespace KY\TME\DTO;
 
+use KY\TME\Constants\Status;
 use KY\TME\Json;
 
 class UpdateParam implements ParamInterface
 {
     /**
-     * @param array $album
-     * @param array $singers
+     * @param Singer[] $singers
      */
     public function __construct(
-        public array $album,
-        public array $singers
+        public Album $album,
+        public array $singers,
+        public int $isPicChange = Status::NO
     ) {
     }
 
@@ -34,7 +35,9 @@ class UpdateParam implements ParamInterface
     {
         return [
             'info' => [
-                'album' => $this->album,
+                'album' => array_merge($this->album->toArray(), [
+                    'Fis_pic_change' => $this->isPicChange,
+                ]),
                 'album_singers' => $this->singers,
             ],
         ];
