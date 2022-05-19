@@ -15,12 +15,19 @@ use KY\TME\Json;
 
 class CreateParam implements ParamInterface
 {
+    /**
+     * @param Chapter $chapter
+     * @param Singer[] $chapterSingers
+     * @param Album $book
+     * @param Singer[] $bookSingers
+     * @param Singer[] $authors
+     */
     public function __construct(
         public Chapter $chapter,
-        public Singer $chapterSinger,
+        public array $chapterSingers,
         public Album $book,
-        public Singer $bookSinger,
-        public Singer $author
+        public array $bookSingers,
+        public array $authors
     ) {
     }
 
@@ -35,19 +42,13 @@ class CreateParam implements ParamInterface
             'chapter_infos' => [
                 [
                     'base_info' => $this->chapter,
-                    'singer_infos' => [
-                        $this->chapterSinger,
-                    ],
+                    'singer_infos' => $this->chapterSingers,
                 ],
             ],
             'book_info' => [
                 'base_info' => $this->book,
-                'singer_infos' => [
-                    $this->bookSinger,
-                ],
-                'author_infos' => [
-                    $this->author,
-                ],
+                'singer_infos' => $this->bookSingers,
+                'author_infos' => $this->authors,
             ],
         ];
     }

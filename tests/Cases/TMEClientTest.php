@@ -23,7 +23,6 @@ use KY\TME\DTO\AppendOrUpdateParam;
 use KY\TME\DTO\Chapter;
 use KY\TME\DTO\CreateParam;
 use KY\TME\DTO\QueryParam;
-use KY\TME\DTO\Singer;
 use KY\TME\DTO\Track;
 use KY\TME\DTO\UpdateParam;
 use KY\TME\Json;
@@ -124,7 +123,11 @@ class TMEClientTest extends AbstractTestCase
                 '2020-03-25 00:00:00',
                 'http://xxx/1.mp3'
             ),
-            new Singer('主播1'),
+            [
+                [
+                    'Fsinger_name' => '主播1',
+                ],
+            ],
             new Album(
                 'KnowYourself',
                 '测试书籍',
@@ -136,8 +139,16 @@ class TMEClientTest extends AbstractTestCase
                 'http://xxx/book.jpg',
                 '2020-03-25 00:00:00',
             ),
-            new Singer('主播1'),
-            new Singer('作者1')
+            [
+                [
+                    'Fsinger_name' => '主播1',
+                ],
+            ],
+            [
+                [
+                    'Fsinger_name' => '作者1',
+                ],
+            ],
         ));
 
         $this->assertSame(0, $res['code']);
@@ -188,7 +199,11 @@ class TMEClientTest extends AbstractTestCase
                 'KnowYourself',
                 'rdxxx',
             ),
-            new Singer('主播1')
+            [
+                [
+                    'Fsinger_name' => '主播1',
+                ],
+            ],
         ));
         $this->assertSame(0, $res['code']);
     }
@@ -241,7 +256,11 @@ class TMEClientTest extends AbstractTestCase
                     'http://xxx/book.jpg',
                     '2020-03-25 00:00:00',
                 ),
-                new Singer('主播1')
+                [
+                    [
+                        'Fsinger_name' => '主播1',
+                    ],
+                ],
             )
         );
         $this->assertSame(0, $res['code']);

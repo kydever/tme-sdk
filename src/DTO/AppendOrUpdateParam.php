@@ -15,9 +15,13 @@ use KY\TME\Json;
 
 class AppendOrUpdateParam implements ParamInterface
 {
+    /**
+     * @param Track $track
+     * @param Singer[] $singers
+     */
     public function __construct(
         public Track $track,
-        public Singer $singer,
+        public array $singers
     ) {
     }
 
@@ -31,9 +35,7 @@ class AppendOrUpdateParam implements ParamInterface
         return [
             'info' => [
                 'track' => $this->track,
-                'track_singers' => [
-                    $this->singer,
-                ],
+                'track_singers' => $this->singers,
             ],
         ];
     }
