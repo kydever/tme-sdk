@@ -73,6 +73,7 @@ class Album implements ParamInterface
             'Foriginal_work_name' => $this->originalWorkName,
             'Foriginal_public_time' => $this->originalPublishTime,
             'Fori_photo_url' => $this->photoUrl,
+            'Fori_pic_url' => $this->photoUrl,
             'Fpublic_time' => $this->publishTime,
             'Fsale_time' => $this->saleTime,
         ]);
