@@ -15,6 +15,9 @@ use KY\TME\Json;
 
 class CreateParam implements ParamInterface
 {
+    /**
+     * @param string $url 将 CreateJson 上传到云端后的访问地址
+     */
     public function __construct(public string $url)
     {
     }
