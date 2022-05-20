@@ -13,6 +13,9 @@ namespace KY\TME\Constants;
 
 class ErrorCode
 {
+    // 成功
+    public const OK = 0;
+
     // 书籍没有入库
     public const ALBUM_NOT_IMPORTED = 20003;
 }
