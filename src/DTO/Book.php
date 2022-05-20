@@ -13,12 +13,14 @@ namespace KY\TME\DTO;
 
 use KY\TME\Json;
 
-class Chapter implements ParamInterface
+class Book implements ParamInterface
 {
     /**
+     * @param Album $album
      * @param Singer[] $singers
+     * @param Singer[] $authors
      */
-    public function __construct(public Track $track, public array $singers)
+    public function __construct(public Album $album, public array $singers = [], public array $authors = [])
     {
     }
 
@@ -30,8 +32,9 @@ class Chapter implements ParamInterface
     public function toArray(): array
     {
         return [
-            'base_info' => $this->track,
+            'base_info' => $this->album,
             'singer_infos' => $this->singers,
+            'author_infos' => $this->authors,
         ];
     }
 
