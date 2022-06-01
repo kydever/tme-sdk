@@ -14,8 +14,8 @@ namespace KY\TME\Constants;
 class ScheduleStatus
 {
     // 连载中
-    public const IN_SERIAL = 0;
+    public const IN_SERIAL = 1;
 
     // 已完结
-    public const CLOSED = 1;
+    public const CLOSED = 2;
 }
