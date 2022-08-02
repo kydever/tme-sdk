@@ -103,7 +103,9 @@ class TMEClientTest extends AbstractTestCase
         );
 
         $json = Json::encode($json);
-        $assert = '{"chapter_infos":[{"base_info":{"Flong_track_name":"测试章节","Flocation":1,"Flanguage":0,"Ftrack_number":"rdxxx","Fpublic_time":"2020-03-25 00:00:00","Fori_audio_url":"https:\/\/xxx\/1.mp3","Ftrans_company":"KnowYourself","Flong_album_number":"1"},"singer_infos":[{"Fsinger_name":"主播1"}]}],"book_info":{"base_info":{"Ftrans_company":"KnowYourself","Flong_album_name":"测试书籍","Flong_album_number":"rdxxx","Fschedule_status":1,"Farea":0,"Ftype":116,"Flanguage":"0","Fori_photo_url":"http:\/\/xxx\/book.jpg","Fori_pic_url":"http:\/\/xxx\/book.jpg","Fpublic_time":"2020-03-25 00:00:00"},"singer_infos":[{"Fsinger_name":"主播1"}],"author_infos":[{"Fsinger_name":"作者1"}]}}';
+        $assert = '{"chapter_infos":[{"base_info":{"Flong_track_name":"测试章节","Flocation":1,"Flanguage":0,"Ftrack_number":"rdxxx","Fpublic_time":"2020-03-25 00:00:00","Fori_audio_url":"https:\/\/xxx\/1.mp3","Ftrans_company":"KnowYourself","Flong_album_number":"1"},"singer_infos":[{"Fsinger_name":"主播1"}]}],"book_info":{"base_info":{"Ftrans_company":"KnowYourself","Flong_album_name":"测试书籍","Flong_album_number":"rdxxx","Fschedule_status":2,"Farea":0,"Ftype":116,"Flanguage":"0","Fori_photo_url":"http:\/\/xxx\/book.jpg","Fori_pic_url":"http:\/\/xxx\/book.jpg","Fpublic_time":"2020-03-25 00:00:00"},"singer_infos":[{"Fsinger_name":"主播1"}],"author_infos":[{"Fsinger_name":"作者1"}]}}';
+        file_put_contents('json.json', $json);
+        file_put_contents('assert.json', $assert);
         $this->assertEquals($json, $assert);
     }
 
