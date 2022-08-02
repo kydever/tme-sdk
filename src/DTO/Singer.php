@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace KY\TME\DTO;
 
 use KY\TME\Json;
+
 use function KY\TME\array_filter_null;
 
 class Singer implements ParamInterface

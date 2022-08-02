@@ -16,7 +16,6 @@ use KY\TME\Json;
 class SaveTrackParam implements ParamInterface
 {
     /**
-     * @param Track $track
      * @param Singer[] $singers
      */
     public function __construct(

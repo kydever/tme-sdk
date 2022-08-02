@@ -16,7 +16,6 @@ use KY\TME\Json;
 class UpdateParam implements ParamInterface
 {
     /**
-     * @param Album $album
      * @param Singer[] $singers
      */
     public function __construct(

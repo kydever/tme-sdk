@@ -16,7 +16,6 @@ use KY\TME\Json;
 class Book implements ParamInterface
 {
     /**
-     * @param Album $album
      * @param Singer[] $singers
      * @param Singer[] $authors
      */
